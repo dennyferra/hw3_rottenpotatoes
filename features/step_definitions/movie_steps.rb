@@ -21,6 +21,16 @@ Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   assert false, "Unimplmemented"
 end
 
+Then /I should see all of the movies/ do
+  Movie.find(:all).each { |m| 
+    if page.respond_to? :should
+      page.should have_content(m[:title])
+    else
+      assert page.has_content?(m[:title])
+    end
+  }
+end
+
 # Make it easier to express checking or unchecking several boxes at once
 #  "When I uncheck the following ratings: PG, G, R"
 #  "When I check the following ratings: G"
