@@ -32,7 +32,9 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   And the "ratings_NC-17" checkbox should not be checked
 
 Scenario: no ratings selected
-  # see assignment
+  When I uncheck the following ratings: ratings_PG-13, ratings_R, ratings_G, ratings_PG, ratings_NC-17
+  And I press "Refresh"
+  Then I should not see any of the movies
 
 Scenario: all ratings selected
   When I check the following ratings: ratings_PG-13, ratings_R, ratings_G, ratings_PG, ratings_NC-17

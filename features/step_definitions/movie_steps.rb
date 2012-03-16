@@ -31,6 +31,16 @@ Then /I should see all of the movies/ do
   }
 end
 
+Then /I should not see any of the movies/ do
+  Movie.find(:all).each { |m| 
+    if page.respond_to? :should
+      page.should have_no_content(m[:title])
+    else
+      assert page.has_no_content?(m[:title])
+    end
+  }
+end
+
 # Make it easier to express checking or unchecking several boxes at once
 #  "When I uncheck the following ratings: PG, G, R"
 #  "When I check the following ratings: G"
